@@ -1,0 +1,98 @@
+/* :host hace referencia al componente completo <app-sidebar> */
+:host {
+    display: block; /* Necesario para que respete altura */
+    height: 100vh;  /* Ocupa toda la altura de la pantalla */
+    width: 260px;   /* Ancho fijo estándar */
+    flex-shrink: 0; /* Para que no se aplaste si usamos Flexbox */
+}
+
+.sidebar {
+    /* USAR --bg-card es la clave:
+       - En Light Mode será: #f4f5f7 (Gris suave)
+       - En Dark Mode será: #1e1e1e (Gris oscuro) */
+    background-color: var(--bg-card); 
+    
+    /* El color del texto se ajusta solo (Negro o Blanco) */
+    color: var(--text-color);
+    
+    height: 100%;
+    padding: 20px;
+    
+    /* Usamos la variable de borde sutil */
+    border-right: 1px solid var(--border-color);
+    
+    /* Animación suave para cuando actives el switch */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 2rem; /* Espacio debajo del título */
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+/* Contenedor para alinear texto y switch */
+.theme-switch-container {
+  margin-top: auto; /* Empuja el switch al fondo del sidebar */
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+/* --- ESTILOS DEL SWITCH (Toggle) --- */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Color cuando está apagado */
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+/* Cuando está activado (CHECKED) */
+input:checked + .slider {
+  background-color: var(--primary-color); /* Se pone azul */
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px); /* El círculo se mueve a la derecha */
+}
+
+/* Forma redonda */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}

@@ -1,0 +1,26 @@
+<div class="layout-wrapper">
+  
+  <button class="mobile-toggle" 
+          (click)="toggleMobileMenu()" 
+          aria-label="Abrir menú">
+    ☰
+  </button>
+
+  <aside class="sidebar-container" [class.open]="isMobileMenuOpen">
+    <app-sidebar></app-sidebar>
+  </aside>
+
+  <div class="sidebar-backdrop" 
+       *ngIf="isMobileMenuOpen" 
+       (click)="closeMobileMenu()">
+  </div>
+
+  <main class="main-content">
+    <app-header></app-header>
+    
+    <div class="content-scroll">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+
+</div>
