@@ -1,0 +1,23 @@
+/* Main Layout Container */
+.main-layout {
+  display: flex;       /* Flexbox: Places Sidebar next to Content */
+  height: 100vh;       /* Full Viewport Height */
+  overflow: hidden;    /* Prevents double scrollbars on the body */
+}
+
+/* Typography Styles */
+h1 {
+  color: var(--primary-color); 
+  font-size: 2rem;       
+  font-weight: bold;     
+  margin-bottom: 20px;   
+}
+
+.content {
+  background-color: var(--bg-color); 
+
+  flex: 1;             
+  padding: 30px;      
+  overflow-y: auto;    
+  transition: background-color 0.3s ease;
+}

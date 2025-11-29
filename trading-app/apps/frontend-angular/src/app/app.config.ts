@@ -1,9 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-// 1. FALTA AGREGAR ESTA LÍNEA (Importante para que funcione HTTP):
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
 import { authInterceptor } from './utils/auth.interceptor';
 import { routes } from './app.routes';
 
