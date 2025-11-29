@@ -1,0 +1,26 @@
+/* Global Variables and Theme Configuration */
+:root {
+  --primary-color: #0052cc;   /* Main brand color */
+  --secondary-color: #172b4d; /* Dark blue for UI elements */
+  --success-color: #36b37e;   /* Profit indicators */
+  --danger-color: #ff5630;    /* Loss indicators */
+  --bg-color: #f4f5f7;        /* General background */
+  --text-color: #333333;      /* Main text color */
+}
+
+/* CSS Reset to ensure consistency across browsers */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base body styles */
+body {
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  height: 100vh;
+}
+
+html, body { height: 100%; }
