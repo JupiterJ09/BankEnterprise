@@ -1,0 +1,31 @@
+// src/styles/_mixins.scss
+
+// Standard Breakpoints
+// Defines the maximum widths for different device categories
+$mobile-width: 768px;
+$tablet-width: 1024px;
+
+// Mixin for Mobile Devices
+// Applies styles only when screen width is 768px or less
+@mixin mobile {
+  @media (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
+
+// Mixin for Tablet Devices
+// Applies styles only when screen width is between 769px and 1024px
+@mixin tablet {
+  @media (min-width: #{$mobile-width + 1}) and (max-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+// Mixin for Desktop Screens
+// Applies styles only when screen width is greater than 1024px
+// (Optional: usually default styles are written for desktop first)
+@mixin desktop {
+  @media (min-width: #{$tablet-width + 1}) {
+    @content;
+  }
+}
