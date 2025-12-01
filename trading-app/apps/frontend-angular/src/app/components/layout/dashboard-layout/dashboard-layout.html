@@ -7,7 +7,9 @@
   </button>
 
   <aside class="sidebar-container" [class.open]="isMobileMenuOpen">
-    <app-sidebar></app-sidebar>
+    
+    <app-sidebar (closeMenu)="closeMobileMenu()"></app-sidebar>
+    
   </aside>
 
   <div class="sidebar-backdrop" 
@@ -16,11 +18,13 @@
   </div>
 
   <main class="main-content">
+    
     <app-header></app-header>
     
     <div class="content-scroll">
       <router-outlet></router-outlet>
     </div>
+
   </main>
 
 </div>

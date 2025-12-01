@@ -1,21 +1,75 @@
 <aside class="sidebar">
-    <h2>Mi Banco</h2>
-    <nav>
-        <ul>
-            <li>Inicio</li>
-            <li>Trading</li>
-            <li>Portafolio</li>
-            <li>Billeteria</li>
-            <li>Cofiguraciones</li>
-        </ul>
-    </nav>
-    <div class="theme-switch-container">
-  <span>Modo Oscuro</span>
-  <label class="switch">
-    <input type="checkbox" 
-           [checked]="themeService.isDarkMode()" 
-           (change)="toggleTheme()">
-    <span class="slider round"></span>
-  </label>
-</div>
+  
+  <div class="sidebar-header">
+
+    <div class="logo-wrapper">
+       <div class="logo-icon">BE</div>
+       <h2>Bank Enterprise</h2>
+    </div>
+
+    <button class="close-btn" (click)="onClose()">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <span class="material-symbols-rounded">grid_view</span>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      
+      <li>
+        <a routerLink="/trading" routerLinkActive="active">
+          <span class="material-symbols-rounded">candlestick_chart</span>
+          <span>Trading</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/portfolio" routerLinkActive="active">
+          <span class="material-symbols-rounded">pie_chart</span>
+          <span>Portafolio</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/wallet" routerLinkActive="active">
+          <span class="material-symbols-rounded">account_balance_wallet</span>
+          <span>Billetera</span>
+        </a>
+      </li>
+
+      <li>
+        <a routerLink="/settings" routerLinkActive="active">
+          <span class="material-symbols-rounded">settings</span>
+          <span>Ajustes</span>
+        </a>
+      </li>
+      <li class="mt-auto"> 
+        <a (click)="logout()" class="logout-link">
+          <span class="material-symbols-rounded">logout</span>
+          <span>Cerrar Sesión</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="theme-switch-container">
+    <div class="theme-info">
+      <span class="material-symbols-rounded">dark_mode</span>
+      <span>Modo Oscuro</span>
+    </div>
+    
+    <label class="switch">
+      <input type="checkbox" 
+             [checked]="themeService.isDarkMode()" 
+             (change)="toggleTheme()">
+      <span class="slider round"></span>
+    </label>
+  </div>
+
 </aside>
