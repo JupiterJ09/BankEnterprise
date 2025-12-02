@@ -1,0 +1,135 @@
+@use 'styles/variables';
+@use 'styles/mixins' as *;
+
+.login-container {
+  display: flex;
+  height: 100vh; 
+  width: 100%;
+  background-color: var(--bg-card);
+}
+
+.image-side {
+  flex: 1; 
+  background-image: url('https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=1964&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  .overlay {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+  }
+
+  h1 { font-size: 3rem; margin-bottom: 10px; }
+  p { font-size: 1.2rem; opacity: 0.9; }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.form-side {
+  flex: 1; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  }
+
+.form-wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: all 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+    }
+
+    &.error {
+      border-color: var(--danger-color);
+    }
+  }
+}
+
+.error-msg {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+
+  &:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+  }
+}
