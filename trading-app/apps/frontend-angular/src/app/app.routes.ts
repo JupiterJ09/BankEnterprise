@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { DashboardLayoutComponent } from './components/layout/dashboard-layout/dashboard-layout';
 import { LoginComponent } from './components/auth/login/login';
+import { authGuard } from './guards/auth-guard';
+import { RegisterComponent } from './components/auth/register/register';
+import { ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password';
 /**
  * Main Application Routes Configuration.
  * * Defines the navigation structure. The DashboardLayoutComponent acts as the
@@ -17,14 +20,22 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
+  { 
+    path: 'register', 
+    component: RegisterComponent 
+  },
+  { 
+    path: 'forgot-password', 
+    component: ForgotPasswordComponent 
+  },
   {
     path: 'dashboard', 
     component: DashboardLayoutComponent,
+    canActivate: [authGuard],
     children: [
     ]
   },
   {
-    
     path: '**',
     redirectTo: 'login'
   }
