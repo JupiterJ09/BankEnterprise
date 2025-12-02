@@ -7,7 +7,7 @@
        <h2>Bank Enterprise</h2>
     </div>
 
-    <button class="close-btn" (click)="onClose()">
+    <button class="close-btn" (click)="onClose()" aria-label="Cerrar menú lateral">
       <span class="material-symbols-rounded">close</span>
     </button>
 
@@ -50,7 +50,11 @@
         </a>
       </li>
       <li class="mt-auto"> 
-        <a (click)="logout()" class="logout-link">
+        <a (click)="logout()" 
+          (keydown.enter)="logout()" 
+          class="logout-link" 
+          tabindex="0"
+          role="button">
           <span class="material-symbols-rounded">logout</span>
           <span>Cerrar Sesión</span>
         </a>

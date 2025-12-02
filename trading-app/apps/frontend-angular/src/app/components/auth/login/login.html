@@ -45,6 +45,12 @@
           </span>
         </div>
 
+        <div class="forgot-link" style="text-align: right; margin-bottom: 15px;">
+          <a routerLink="/forgot-password" style="color: var(--text-muted); font-size: 0.9rem; text-decoration: none;">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
         <button type="submit" [disabled]="loginForm.invalid || isSubmitting">
           {{ isSubmitting ? 'Entrando...' : 'Entrar' }}
         </button>
@@ -52,8 +58,11 @@
       </form>
       
       <p class="footer-text">
-        ¿No tienes cuenta? <a href="#">Regístrate</a>
+        ¿No tienes cuenta? 
+        <a routerLink="/register">Regístrate</a>
       </p>
+
+      
     </div>
   </div>
 

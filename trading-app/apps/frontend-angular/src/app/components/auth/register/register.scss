@@ -1,0 +1,124 @@
+@use 'styles/variables';
+@use 'styles/mixins' as *;
+
+/* Reutilizamos casi todo el estilo del Login para consistencia */
+.register-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--bg-card);
+}
+
+.image-side {
+  flex: 1;
+  /* IMAGEN DIFERENTE: Edificio moderno */
+  background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  .overlay {
+    background: rgba(0, 50, 100, 0.7); /* Un tinte más azulado */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(3px);
+  }
+
+  h1 { font-size: 3rem; margin-bottom: 10px; }
+  
+  @include mobile { display: none; }
+}
+
+.form-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Menos padding porque el form es largo */
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 450px; /* Un poco más ancho */
+}
+
+h2 { font-size: 2rem; color: var(--primary-color); }
+.subtitle { color: var(--text-muted); margin-bottom: 20px; }
+
+/* LAYOUT EN FILA (Nombre y Apellido) */
+.row {
+  display: flex;
+  gap: 15px;
+  
+  .half { flex: 1; }
+}
+
+.form-group {
+  margin-bottom: 15px; /* Un poco más compacto */
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    
+    &:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+    &.error {
+      border-color: var(--danger-color);
+    }
+  }
+}
+
+.error-msg {
+  color: var(--danger-color);
+  font-size: 0.8rem;
+  margin-top: 2px;
+  display: block;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  
+  &:disabled {
+    background-color: var(--text-muted);
+    cursor: not-allowed;
+  }
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  
+  a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
