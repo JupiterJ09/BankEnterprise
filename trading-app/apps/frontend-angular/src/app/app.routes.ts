@@ -4,6 +4,7 @@ import { LoginComponent } from './components/auth/login/login';
 import { authGuard } from './guards/auth-guard';
 import { RegisterComponent } from './components/auth/register/register';
 import { ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password';
+import { ProfileComponent } from './components/user/profile/profile';
 /**
  * Main Application Routes Configuration.
  * * Defines the navigation structure. The DashboardLayoutComponent acts as the
@@ -33,6 +34,7 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     canActivate: [authGuard],
     children: [
+      { path: 'profile', component: ProfileComponent}
     ]
   },
   {

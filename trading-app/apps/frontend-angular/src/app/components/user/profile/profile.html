@@ -1,0 +1,93 @@
+<div class="profile-container" *ngIf="user">
+  
+  <aside class="profile-card">
+    <div class="avatar-section">
+      <div class="avatar-circle">
+        {{ user.firstName.charAt(0) }}
+      </div>
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+      <span class="role-badge">{{ user.role }}</span>
+    </div>
+
+    <div class="info-list">
+      <div class="info-item">
+        <span class="material-symbols-rounded icon">calendar_month</span>
+        <div>
+          <label>Miembro desde</label>
+          <p>{{ user.createdAt | date:'mediumDate' }}</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="material-symbols-rounded icon">verified_user</span>
+        <div>
+          <label>Estado</label>
+          <p class="status-active">Verificado</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <section class="profile-content">
+    
+    <div class="tabs">
+      <button [class.active]="activeTab === 'personal'" (click)="setActiveTab('personal')">
+        Información Personal
+      </button>
+      <button [class.active]="activeTab === 'security'" (click)="setActiveTab('security')">
+        Seguridad
+      </button>
+    </div>
+
+    <div class="tab-content" *ngIf="activeTab === 'personal'">
+      <div class="header-row">
+        <h3>Datos de la Cuenta</h3>
+        <button class="btn-edit" (click)="toggleEdit()">
+          <span class="material-symbols-rounded">{{ isEditing ? 'close' : 'edit' }}</span>
+          {{ isEditing ? 'Cancelar' : 'Editar' }}
+        </button>
+      </div>
+
+      <form [formGroup]="profileForm" (ngSubmit)="saveChanges()">
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" formControlName="firstName" [readonly]="!isEditing" [class.editable]="isEditing">
+          </div>
+
+          <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" formControlName="lastName" [readonly]="!isEditing" [class.editable]="isEditing">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Correo Electrónico</label>
+            <input type="email" formControlName="email" readonly class="disabled-input">
+            <small class="hint">El correo no se puede cambiar por seguridad.</small>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Teléfono</label>
+            <input type="tel" formControlName="phone" [readonly]="!isEditing" [class.editable]="isEditing" placeholder="+52...">
+          </div>
+
+        </div>
+
+        <div class="form-actions" *ngIf="isEditing">
+          <button type="submit" class="btn-save" [disabled]="profileForm.invalid">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="tab-content" *ngIf="activeTab === 'security'">
+      <div class="security-placeholder">
+        <span class="material-symbols-rounded lock-icon">lock</span>
+        <h3>Configuración de Seguridad</h3>
+        <p>Aquí podrás cambiar tu contraseña y configurar el 2FA próximamente.</p>
+        <button class="btn-secondary">Cambiar Contraseña</button>
+      </div>
+    </div>
+
+  </section>
+
+</div>
