@@ -1,43 +1,54 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../../services/auth'; // Importar servicio
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrl: './login.scss'
 })
 export class LoginComponent {
-
   loginForm: FormGroup;
   isSubmitting = false;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authService: AuthService // Inyectar servicio
   ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]], 
-      password: ['', [Validators.required, Validators.minLength(6)]] 
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       this.isSubmitting = true;
-      console.log('Datos del formulario:', this.loginForm.value);
+      this.errorMessage = null;
 
-      setTimeout(() => {
-        this.router.navigate(['/dashboard']);
-        this.isSubmitting = false;
-      }, 1500);
+      const { email, password } = this.loginForm.value;
+
+      // LLAMADA REAL AL SERVICIO
+      this.authService.login(email, password).subscribe({
+        next: (user) => {
+          console.log('Bienvenido:', user.firstName);
+          this.router.navigate(['/dashboard']);
+        },
+        error: (err) => {
+          console.error('Error:', err);
+          this.errorMessage = 'Usuario no encontrado o contraseña incorrecta.';
+          this.isSubmitting = false;
+        }
+      });
+
     } else {
       this.loginForm.markAllAsTouched();
     }
   }
-
-
 }
