@@ -109,4 +109,31 @@ export class AuthService {
       }, 1500);
     });
   }
+
+
+  /**
+   * ACTUALIZAR PERFIL
+   * Envía los datos modificados al backend para guardarlos.
+   */
+  updateProfile(userId: string, data: Partial<User>): Observable<User> {
+    // PATCH: Significa "actualiza solo lo que te mando" (no borres lo demás)
+    return this.http.patch<User>(`${this.apiUrl}/users/${userId}`, data).pipe(
+      map(updatedUser => {
+        // MUY IMPORTANTE:
+        // El backend ya lo guardó, pero nuestra app local (el navegador)
+        // sigue teniendo los datos viejos en memoria. Hay que actualizarlos también.
+        
+        // 1. Recuperamos lo que ya teníamos
+        const currentUser = this.currentUserSubject.value;
+        
+        // 2. Mezclamos lo viejo con lo nuevo
+        const mergedUser = { ...currentUser, ...updatedUser } as User;
+        
+        // 3. Guardamos la versión nueva en sesión y avisamos a la app
+        this.saveSession(mergedUser);
+        
+        return mergedUser;
+      })
+    );
+  }
 }

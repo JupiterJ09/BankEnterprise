@@ -1,0 +1,202 @@
+@use 'styles/variables';
+@use 'styles/mixins' as *;
+
+.profile-container {
+  display: grid;
+  /* DIBUJO DE LA GRILLA: 300px izquierda, el resto derecha */
+  grid-template-columns: 300px 1fr; 
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* EN MÓVIL: Una sola columna */
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- TARJETA IZQUIERDA --- */
+.profile-card {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  height: fit-content; /* Se ajusta al contenido */
+
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-size: 3rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+  }
+
+  h2 { font-size: 1.5rem; margin-bottom: 5px; color: var(--text-color); }
+  
+  .role-badge {
+    background-color: var(--bg-hover);
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .info-list {
+    margin-top: 30px;
+    text-align: left;
+    
+    .info-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      
+      .icon { color: var(--text-muted); font-size: 1.5rem; }
+      
+      label { display: block; font-size: 0.8rem; color: var(--text-muted); }
+      p { margin: 0; font-weight: 500; color: var(--text-color); }
+      
+      .status-active { color: var(--success-color); }
+    }
+  }
+}
+
+/* --- COLUMNA DERECHA --- */
+.profile-content {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid var(--border-color);
+}
+
+/* PESTAÑAS */
+.tabs {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 30px;
+
+  button {
+    background: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 1rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+
+    &.active {
+      color: var(--primary-color);
+      border-bottom-color: var(--primary-color);
+      font-weight: 600;
+    }
+    
+    &:hover:not(.active) { color: var(--text-color); }
+  }
+}
+
+/* FORMULARIO */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  h3 { margin: 0; color: var(--text-color); }
+  
+  .btn-edit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-color);
+    
+    &:hover { background-color: var(--bg-hover); }
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dos columnas en el form */
+  gap: 20px;
+  
+  @include mobile { grid-template-columns: 1fr; }
+  
+  .full-width { grid-column: 1 / -1; }
+}
+
+.form-group {
+  label { display: block; margin-bottom: 8px; font-size: 0.9rem; color: var(--text-muted); }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid transparent; /* Invisible por defecto */
+    background-color: transparent;
+    color: var(--text-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    
+    &.disabled-input { opacity: 0.7; cursor: not-allowed; }
+    
+    /* Cuando se activa la edición */
+    &.editable {
+      background-color: var(--bg-color); /* Se pone del color del fondo general */
+      border-color: var(--border-color);
+    }
+  }
+  
+  .hint { font-size: 0.8rem; color: var(--text-muted); }
+}
+
+.form-actions {
+  margin-top: 30px;
+  text-align: right;
+  
+  .btn-save {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    
+    &:hover { background-color: var(--primary-hover); }
+    &:disabled { background-color: var(--text-muted); }
+  }
+}
+
+/* Placeholder de Seguridad */
+.security-placeholder {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  
+  .lock-icon { font-size: 4rem; margin-bottom: 10px; opacity: 0.5; }
+  
+  .btn-secondary {
+    margin-top: 20px;
+    background: none;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    
+    &:hover { background-color: var(--bg-hover); }
+  }
+}
