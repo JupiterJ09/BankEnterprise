@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder,FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth';
 import { User } from '@trading-app/types';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -16,6 +17,11 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   activeTab: 'personal' | 'security' = 'personal';
   isEditing = false;
+
+
+  showQrCode = false;
+  twoFaCode: string = '';
+  isTwoFaEnabled = false;
 
   constructor(
     private authService: AuthService,
@@ -33,7 +39,9 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(user => {
       if (user){
-        this.user = user;
+        this.user = user; 
+        this.isTwoFaEnabled = user.twoFactorEnabled;
+
         this.profileForm.patchValue({
           firstName: user.firstName,
           lastName: user.lastName,
@@ -58,7 +66,6 @@ export class ProfileComponent implements OnInit {
   toggleEdit() {
     this.isEditing = !this.isEditing;
     if (!this.isEditing) {
-      // Si cancelamos, reseteamos los valores
       this.ngOnInit(); 
     }
   }
@@ -68,20 +75,49 @@ export class ProfileComponent implements OnInit {
    */
   saveChanges() {
     if (this.profileForm.valid && this.user) {
-      // 1. Obtenemos solo los valores del form
       const updatedData = this.profileForm.value;
-      
-      // 2. Llamamos al servicio nuevo
       this.authService.updateProfile(this.user.id, updatedData).subscribe({
         next: (newUser) => {
           console.log('¡Guardado en DB!', newUser);
-          this.isEditing = false; // Salimos del modo edición
-          // No hace falta recargar, el servicio actualiza la vista automáticamente
+          this.isEditing = false;
         },
         error: (err) => {
           console.error('Error al guardar', err);
           alert('Hubo un error al guardar los cambios.');
         }
+      });
+    }
+  }
+
+  initiateTwoFaSetup() {
+    this.showQrCode = true;
+    this.twoFaCode = ''; 
+  }
+
+  cancelTwoFaSetup() {
+    this.showQrCode = false;
+    this.twoFaCode = '';
+  }
+
+  verifyTwoFaCode() {
+    // accept anywhere code 
+    if (this.twoFaCode.length === 6 && this.user) {
+      console.log('Verificando código 2FA:', this.twoFaCode);
+      
+      this.authService.updateProfile(this.user.id, { twoFactorEnabled: true }).subscribe(() => {
+        this.isTwoFaEnabled = true;
+        this.showQrCode = false; 
+        alert('¡Seguridad 2FA Activada con Éxito!');
+      });
+    } else {
+      alert('El código debe tener 6 dígitos.');
+    }
+  }
+
+  disableTwoFa() {
+    if (confirm('¿Seguro que quieres desactivar la seguridad extra?') && this.user) {
+      this.authService.updateProfile(this.user.id, { twoFactorEnabled: false }).subscribe(() => {
+        this.isTwoFaEnabled = false;
       });
     }
   }

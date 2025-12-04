@@ -80,12 +80,49 @@
     </div>
 
     <div class="tab-content" *ngIf="activeTab === 'security'">
-      <div class="security-placeholder">
-        <span class="material-symbols-rounded lock-icon">lock</span>
-        <h3>Configuración de Seguridad</h3>
-        <p>Aquí podrás cambiar tu contraseña y configurar el 2FA próximamente.</p>
-        <button class="btn-secondary">Cambiar Contraseña</button>
+      
+      <div class="security-card" *ngIf="!isTwoFaEnabled && !showQrCode">
+        <div class="icon-circle warning">
+          <span class="material-symbols-rounded">g_pp</span> </div>
+        <h3>Protege tu cuenta</h3>
+        <p>La autenticación de dos factores (2FA) añade una capa extra de seguridad. Te pediremos un código de tu celular cada vez que inicies sesión.</p>
+        <button class="btn-primary" (click)="initiateTwoFaSetup()">Activar 2FA</button>
       </div>
+
+      <div class="setup-2fa" *ngIf="showQrCode">
+        <h3>Configurar Autenticador</h3>
+        <p>Escanea este código QR con tu aplicación (Google Authenticator o Authy).</p>
+        
+        <div class="qr-placeholder">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=OtpAuthSimulado" alt="QR Code">
+        </div>
+
+        <div class="code-input-section">
+          <label>Ingresa el código de 6 dígitos:</label>
+          <input type="text" 
+                 [(ngModel)]="twoFaCode" 
+                 maxlength="6" 
+                 placeholder="000 000"
+                 class="input-code">
+        </div>
+
+        <div class="actions">
+          <button class="btn-cancel" (click)="cancelTwoFaSetup()">Cancelar</button>
+          <button class="btn-verify" 
+                  [disabled]="twoFaCode.length < 6" 
+                  (click)="verifyTwoFaCode()">Verificar y Activar</button>
+        </div>
+      </div>
+
+      <div class="security-card active" *ngIf="isTwoFaEnabled">
+        <div class="icon-circle success">
+          <span class="material-symbols-rounded">verified_user</span>
+        </div>
+        <h3>Tu cuenta está blindada</h3>
+        <p>La autenticación de dos factores está activa. Tu dinero está más seguro.</p>
+        <button class="btn-danger-outline" (click)="disableTwoFa()">Desactivar 2FA</button>
+      </div>
+
     </div>
 
   </section>
