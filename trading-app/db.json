@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": "u1",
+      "email": "david@bank.com",
+      "passwordHash": "hashed_secret",
+      "firstName": "David",
+      "lastName": "Alcázar",
+      "role": "TRADER",
+      "status": "ACTIVE",
+      "createdAt": "2023-10-27T10:00:00Z"
+    },
+    {
+      "id": "740f",
+      "firstName": "David",
+      "lastName": "Alcazar",
+      "email": "david@gmail.com",
+      "password": "123456",
+      "passwordHash": "hashed_secret",
+      "role": "USER",
+      "status": "ACTIVE",
+      "emailVerified": false,
+      "twoFactorEnabled": false,
+      "createdAt": "2025-12-02T03:30:33.635Z",
+      "updatedAt": "2025-12-02T03:30:33.635Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "a1",
+      "userId": "u1",
+      "accountNumber": "4000123456789012",
+      "accountType": "CHECKING",
+      "balance": 25750.5,
+      "currency": "MXN",
+      "status": "ACTIVE"
+    }
+  ],
+  "stocks": [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "currentPrice": 150.25,
+      "changePercent": 1.2,
+      "sector": "Technology",
+      "id": "7578"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "currentPrice": 240.5,
+      "changePercent": -0.5,
+      "sector": "Automotive",
+      "id": "53d5"
+    },
+    {
+      "symbol": "AMZN",
+      "name": "Amazon.com",
+      "currentPrice": 130,
+      "changePercent": 0.8,
+      "sector": "Technology",
+      "id": "25fe"
+    }
+  ],
+  "portfolio": {
+    "summary": {
+      "userId": "u1",
+      "totalValue": 150250,
+      "cashBalance": 25750.5,
+      "totalPnL": 12500,
+      "totalPnLPercent": 8.5,
+      "diversification": {
+        "Technology": 60,
+        "Automotive": 40
+      }
+    },
+    "positions": [
+      {
+        "symbol": "AAPL",
+        "quantity": 10,
+        "averageBuyPrice": 140,
+        "currentPrice": 150.25,
+        "unrealizedPnL": 102.5
+      },
+      {
+        "symbol": "TSLA",
+        "quantity": 5,
+        "averageBuyPrice": 200,
+        "currentPrice": 240.5,
+        "unrealizedPnL": 202.5
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "@trading-app/types",
+  "version": "1.0.0",
+  "description": "Contratos de datos compartidos",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "David",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

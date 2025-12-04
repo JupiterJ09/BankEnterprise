@@ -1,0 +1,66 @@
+<div class="register-container">
+  
+  <div class="image-side">
+    <div class="overlay">
+      <h1>Únete a nosotros</h1>
+      <p>Empieza a invertir en tu futuro hoy mismo.</p>
+    </div>
+  </div>
+
+  <div class="form-side">
+    <div class="form-wrapper">
+      <h2>Crear Cuenta</h2>
+      <p class="subtitle">Completa tus datos para empezar</p>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <div class="row">
+          <div class="form-group half">
+            <label>Nombre</label>
+            <input type="text" formControlName="firstName" placeholder="Juan"
+                   [class.error]="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+          </div>
+          <div class="form-group half">
+            <label>Apellido</label>
+            <input type="text" formControlName="lastName" placeholder="Pérez"
+                   [class.error]="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" formControlName="email" placeholder="juan@ejemplo.com"
+                 [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+          <span class="error-msg" *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched">
+            Correo inválido
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" formControlName="password" placeholder="Mínimo 6 caracteres"
+                 [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar Contraseña</label>
+          <input type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña"
+                 [class.error]="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+          
+          <span class="error-msg" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+            Las contraseñas no coinciden
+          </span>
+        </div>
+
+        <button type="submit" [disabled]="registerForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Registrando...' : 'Crear Cuenta' }}
+        </button>
+
+      </form>
+      
+      <p class="footer-text">
+        ¿Ya tienes cuenta? <a routerLink="/login">Inicia Sesión</a>
+      </p>
+    </div>
+  </div>
+</div>
