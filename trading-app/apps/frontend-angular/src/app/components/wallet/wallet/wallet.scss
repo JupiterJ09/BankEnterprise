@@ -1,0 +1,149 @@
+@use 'styles/variables';
+@use 'styles/mixins' as *;
+
+.wallet-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.wallet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  h1 { font-size: 2rem; color: var(--text-color); margin: 0; }
+  .subtitle { color: var(--text-muted); margin: 5px 0 0; }
+
+  /* Tarjeta pequeña de saldo total */
+  .total-balance-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 15px 25px;
+    border-radius: 12px;
+    text-align: right;
+    box-shadow: var(--shadow);
+
+    .label { font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 5px; }
+    .amount { margin: 0; font-size: 1.8rem; color: var(--primary-color); }
+  }
+}
+
+/* --- GRID DE TARJETAS --- */
+.cards-grid {
+  display: grid;
+  /* Auto-fill: Crea tantas columnas como quepan (mínimo 320px cada una) */
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* --- ESTILO BASE DE LA TARJETA --- */
+.bank-card {
+  height: 200px;
+  border-radius: 20px;
+  padding: 25px;
+  color: white;
+  position: relative;
+  overflow: hidden; /* Para que el brillo no se salga */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-5px); /* Efecto de levitar */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+  }
+
+  /* Variantes de Color (Degradados) */
+  &.card-blue {
+    background: linear-gradient(135deg, #0052cc 0%, #003380 100%);
+  }
+  &.card-gold {
+    background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%);
+    color: #172b4d; /* Texto oscuro para contraste */
+    .chip span { color: #172b4d; }
+  }
+  &.card-dark {
+    background: linear-gradient(135deg, #2c3e50 0%, #000000 100%);
+  }
+
+  /* Elementos internos */
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .chip span { font-size: 40px; opacity: 0.8; }
+    .bank-logo { font-weight: 900; font-size: 1.2rem; opacity: 0.8; letter-spacing: 2px; }
+  }
+
+  .card-middle {
+    .balance-label { font-size: 0.8rem; opacity: 0.8; display: block; margin-bottom: 5px; }
+    .balance { font-size: 2rem; font-weight: 700; letter-spacing: 1px; }
+  }
+
+  .card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .account-number { font-family: monospace; font-size: 1.1rem; letter-spacing: 2px; display: block; }
+    .account-name { font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; margin-top: 5px; display: block;}
+    .card-type { font-size: 0.7rem; border: 1px solid rgba(255,255,255,0.5); padding: 2px 6px; border-radius: 4px; }
+  }
+
+  /* Efecto de Brillo (Shine) */
+  .shine {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+  }
+}
+
+/* --- SKELETON LOADING (Carga) --- */
+.bank-card.skeleton {
+  background: #e0e0e0;
+  animation: pulse 1.5s infinite;
+  box-shadow: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+.actions-bar {
+  display: flex;
+  gap: 15px;
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+  }
+}
