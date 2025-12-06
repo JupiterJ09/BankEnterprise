@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { AccountService } from '../../../services/account';
 import { AuthService } from '../../../services/auth';
 import { Account } from '@trading-app/types';
+import { TransactionListComponent } from '../transaction-list/transaction-list';
 
 @Component({
   selector: 'app-wallet',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TransactionListComponent],
   templateUrl: './wallet.html',
   styleUrl: './wallet.scss',
 })

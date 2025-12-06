@@ -52,6 +52,10 @@
 
   </section>
 
+  <ng-container *ngIf="accounts.length > 0">
+    <app-transaction-list [accountId]="accounts[0].id"></app-transaction-list>
+  </ng-container>
+
   <div class="actions-bar">
     <button class="action-btn">
       <span class="material-symbols-rounded">add_card</span>
