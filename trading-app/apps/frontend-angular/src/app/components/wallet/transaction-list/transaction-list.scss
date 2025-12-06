@@ -1,0 +1,141 @@
+@use 'styles/variables';
+@use 'styles/mixins' as *;
+
+.transactions-panel {
+  background-color: var(--bg-card);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  overflow: hidden; /* Para que la tabla no se salga de las esquinas redondeadas */
+  margin-bottom: 30px;
+}
+
+.panel-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 { margin: 0; font-size: 1.2rem; color: var(--text-color); }
+
+  .btn-filter {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-muted);
+    &:hover { background-color: var(--bg-hover); }
+  }
+}
+
+.table-container {
+  overflow-x: auto; /* Scroll horizontal en celular */
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Ancho mínimo para que no se rompa */
+
+  th {
+    text-align: left;
+    padding: 15px 20px;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  td {
+    padding: 15px 20px;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+  }
+
+  /* --- ESTILOS DE FILAS --- */
+  tbody tr:hover {
+    background-color: var(--bg-hover);
+  }
+
+  /* ICONOS DE TIPO */
+  .tx-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &.deposit { background-color: rgba(54, 179, 126, 0.1); color: var(--success-color); }
+    &.withdrawal { background-color: rgba(255, 86, 48, 0.1); color: var(--danger-color); }
+    &.trade { background-color: rgba(0, 82, 204, 0.1); color: var(--primary-color); }
+  }
+
+  /* TEXTOS */
+  .tx-desc {
+    display: flex;
+    flex-direction: column;
+    .main-text { font-weight: 500; }
+    .sub-text { font-size: 0.8rem; color: var(--text-muted); }
+  }
+
+  /* BADGES */
+  .status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: var(--bg-hover);
+    color: var(--text-muted);
+
+    &.pending {
+      background-color: rgba(255, 171, 0, 0.1);
+      color: #ffab00; /* Naranja pendiente */
+    }
+  }
+
+  /* MONTOS */
+  .amount {
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 1rem;
+    
+    &.positive { color: var(--success-color); }
+    &.negative { color: var(--text-color); } /* O rojo si prefieres */
+  }
+  
+  .text-right { text-align: right; }
+}
+
+/* PAGINACIÓN */
+.pagination {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+
+  .page-info { font-size: 0.9rem; color: var(--text-muted); }
+
+  .page-controls button {
+    background: none;
+    border: 1px solid var(--border-color);
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-left: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+
+    &:hover:not(:disabled) { background-color: var(--primary-color); color: white; border-color: var(--primary-color); }
+    &:disabled { opacity: 0.5; cursor: not-allowed; }
+  }
+}

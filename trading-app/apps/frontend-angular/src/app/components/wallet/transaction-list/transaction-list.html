@@ -1,0 +1,84 @@
+<div class="transactions-panel">
+  <div class="panel-header">
+    <h3>Historial de Movimientos</h3>
+    <button class="btn-filter">
+      <span class="material-symbols-rounded">filter_list</span>
+      Filtrar
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table class="transactions-table">
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Descripción</th>
+          <th>Fecha</th>
+          <th>Estado</th>
+          <th class="text-right">Monto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading">
+          <td colspan="5" class="loading-row">Cargando movimientos...</td>
+        </tr>
+
+        <tr *ngIf="!isLoading && transactions.length === 0">
+          <td colspan="5" class="empty-row">No hay movimientos recientes.</td>
+        </tr>
+
+        <tr *ngFor="let tx of paginatedTransactions">
+          <td>
+            <div class="tx-icon" [ngClass]="{
+              'deposit': tx.type === 'DEPOSIT' || tx.type === 'TRANSFER_IN',
+              'withdrawal': tx.type === 'WITHDRAWAL' || tx.type === 'TRANSFER_OUT',
+              'trade': tx.type === 'TRADE_BUY' || tx.type === 'TRADE_SELL'
+            }">
+              <span class="material-symbols-rounded">
+                {{ tx.type.includes('DEPOSIT') ? 'arrow_downward' : 
+                   tx.type.includes('WITHDRAWAL') ? 'arrow_upward' : 'candlestick_chart' }}
+              </span>
+            </div>
+          </td>
+          
+          <td>
+            <div class="tx-desc">
+              <span class="main-text">{{ tx.description }}</span>
+              <span class="sub-text">{{ tx.type }} • Ref: {{ tx.reference }}</span>
+            </div>
+          </td>
+
+          <td>{{ tx.createdAt | date:'mediumDate' }}</td>
+
+          <td>
+            <span class="status-badge" [class.pending]="tx.status === 'PENDING'">
+              {{ tx.status }}
+            </span>
+          </td>
+
+          <td class="text-right amount" [ngClass]="{
+            'positive': tx.type === 'DEPOSIT' || tx.type === 'TRANSFER_IN',
+            'negative': tx.type === 'WITHDRAWAL' || tx.type === 'TRANSFER_OUT' || tx.type.includes('BUY')
+          }">
+            {{ tx.type.includes('DEPOSIT') ? '+' : '-' }}
+            {{ tx.amount | currency:'MXN' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination" *ngIf="transactions.length > 0">
+    <span class="page-info">
+      Página {{ currentPage }} de {{ totalPages }}
+    </span>
+    <div class="page-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">
+        <span class="material-symbols-rounded">chevron_left</span>
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <span class="material-symbols-rounded">chevron_right</span>
+      </button>
+    </div>
+  </div>
+</div>

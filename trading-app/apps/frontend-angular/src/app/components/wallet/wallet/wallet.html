@@ -1,0 +1,70 @@
+<div class="wallet-container">
+  
+  <header class="wallet-header">
+    <div>
+      <h1>Mi Billetera</h1>
+      <p class="subtitle">Gestiona tus cuentas y saldo disponible</p>
+    </div>
+    
+    <div class="total-balance-card">
+      <span class="label">Saldo Total Consolidado</span>
+      <h2 class="amount">{{ totalBalance | currency:'MXN':'symbol-narrow':'1.2-2' }}</h2>
+    </div>
+  </header>
+
+  <section class="cards-grid">
+    
+    <ng-container *ngIf="isLoading">
+      <div class="bank-card skeleton" *ngFor="let i of [1,2,3]"></div>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading">
+      <div class="bank-card" *ngFor="let account of accounts"
+           [ngClass]="{
+             'card-blue': account.accountType === 'CHECKING',
+             'card-gold': account.accountType === 'SAVINGS',
+             'card-dark': account.accountType === 'INVESTMENT'
+           }">
+        
+        <div class="card-top">
+          <div class="chip">
+            <span class="material-symbols-rounded">memory</span>
+          </div>
+          <div class="bank-logo">BE</div> </div>
+
+        <div class="card-middle">
+          <span class="balance-label">Saldo Disponible</span>
+          <div class="balance">{{ account.balance | currency:account.currency }}</div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="account-info">
+            <span class="account-number">**** {{ account.accountNumber | slice:-4 }}</span>
+            <span class="account-name">David Alcázar</span> </div>
+          <div class="card-type">
+            {{ account.accountType }}
+          </div>
+        </div>
+
+        <div class="shine"></div>
+      </div>
+    </ng-container>
+
+  </section>
+
+  <ng-container *ngIf="accounts.length > 0">
+    <app-transaction-list [accountId]="accounts[0].id"></app-transaction-list>
+  </ng-container>
+
+  <div class="actions-bar">
+    <button class="action-btn">
+      <span class="material-symbols-rounded">add_card</span>
+      Nueva Cuenta
+    </button>
+    <button class="action-btn">
+      <span class="material-symbols-rounded">compare_arrows</span>
+      Transferir
+    </button>
+  </div>
+
+</div>
